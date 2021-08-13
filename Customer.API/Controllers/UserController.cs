@@ -34,7 +34,6 @@ namespace Customer.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] AddUserDTO userDTO)
         {
-            Console.WriteLine(JsonSerializer.Serialize(userDTO));
             await _customerService.AddUser(userDTO);
             return Ok();
         }

@@ -8,7 +8,7 @@ namespace Customer.Core.Interfaces
     public interface ICustomerService
     {
         Task AddUser(AddUserDTO userDTO);
-        Task<User> GetUser(long id);
-        Task<IReadOnlyList<User>> GetUsers();
+        Task<GetUserDTO> GetUser(long id);
+        Task<IReadOnlyList<GetUserDTO>> GetUsers();
     }
 }
