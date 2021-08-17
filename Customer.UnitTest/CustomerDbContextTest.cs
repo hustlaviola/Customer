@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Customer.Core.Domain.Enums;
 using Customer.Core.Domain.Models;
 using Customer.Core.Repositories;
 using Customer.Infrastructure.Data.EfCore;
@@ -9,11 +10,11 @@ using Xunit;
 
 namespace Customer.UnitTest
 {
-    public class CustomerTest
+    public class CustomerDbContextTest
     {
         private DbContextOptions<CustomerDbContext> options;
 
-        public CustomerTest()
+        public CustomerDbContextTest()
         {
             options = new DbContextOptionsBuilder<CustomerDbContext>()
             .UseInMemoryDatabase(databaseName: "Customers")
@@ -24,7 +25,13 @@ namespace Customer.UnitTest
         public async void Add_User_Successful()
         {
             // Arrange
-            var user1 = new User { Id = 1, FirstName = "Viola", LastName = "Vino" };
+            var user1 = new User
+            {
+                Id = 1,
+                FirstName = "Viola",
+                LastName = "Vino",
+                DateCreated = DateTime.Now
+            };
             var user2 = new User { Id = 2, FirstName = "Viola", LastName = "Vino" };
             var context1 = new CustomerDbContext(options);
             var context2 = new CustomerDbContext(options);
@@ -67,7 +74,18 @@ namespace Customer.UnitTest
         public async void User_Id_Equals_Expected()
         {
             // Arrange
-            var user = new User { Id = 1, FirstName = "Viola", LastName = "Vino" };
+            var user = new User
+            {
+                Id = 1,
+                FirstName = "Viola",
+                LastName = "Vino",
+                Gender = Enum.Parse<Gender>("Male"),
+                DateOfBirth = Convert.ToDateTime("11-16-1989"),
+                EmailAddress = "hustlaviola@gmail.com",
+                AccountNumber = "2033445566",
+                Address = "No 2, Viola Street",
+                PhoneNumber = "08033445566"
+            };
             var expectedId = user.Id;
             var searchId = 1;
             var context = new CustomerDbContext(options);
